@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
-import "./Login.css"
 
 export const Login = () => {
     const [email, setEmail] = useState("steve@brownlee.com")
@@ -12,14 +11,14 @@ export const Login = () => {
         e.preventDefault()
         fetch(`http://localhost:8000/login`, {
             method: "POST",
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ "username": email, "password": password }),
             headers: {
                 "Content-Type": "application/json"
             }
         })
             .then(res => res.json())
             .then(authInfo => {
-                if (authInfo.valid) {
+                if (authInfo.token) {
                     localStorage.setItem("rock_token", JSON.stringify(authInfo))
                     navigate("/")
                 } else {
