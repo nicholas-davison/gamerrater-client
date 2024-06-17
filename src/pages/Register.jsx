@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
-import "./Login.css"
 
 export const Register = () => {
     const [email, setEmail] = useState("admina@straytor.com")
@@ -15,10 +14,10 @@ export const Register = () => {
         fetch(`http://localhost:8000/register`, {
             method: "POST",
             body: JSON.stringify({
-                email,
-                password,
-                first_name: firstName,
-                last_name: lastName
+                "username": email,
+                "password": password,
+                "first_name": firstName,
+                "last_name": lastName
             }),
             headers: {
                 "Content-Type": "application/json"
@@ -26,6 +25,7 @@ export const Register = () => {
         })
             .then(res => res.json())
             .then(authInfo => {
+                
                 if (authInfo && authInfo.token) {
                     localStorage.setItem("rock_token", JSON.stringify(authInfo))
                     navigate("/")

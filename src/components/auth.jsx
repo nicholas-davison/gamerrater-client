@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { NavBar } from "./Navbar.jsx"
+import { NavBar } from "./nav.jsx"
 
 export const Authorized = () => {
   if (localStorage.getItem("rock_token")) {

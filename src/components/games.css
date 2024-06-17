@@ -1,0 +1,7 @@
+.game-item {
+    border: solid, black, 3px;
+    border-radius: 6px;
+    margin: 20px;
+    padding: 10px;
+    text-align: center;
+}
