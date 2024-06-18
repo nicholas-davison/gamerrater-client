@@ -5,3 +5,19 @@
     padding: 10px;
     text-align: center;
 }
+
+.game-form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.input-game-form {
+    margin: 8px;
+    padding: 8px;
+    
+}
+
+.label-game-form {
+    margin: 5px 0px
+}

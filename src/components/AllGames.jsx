@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { getAllGames } from "../services/gameservice"
 import "./games.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export const AllGames = () => {
+    const navigate = useNavigate()
 
     const [allGames, setAllGames] = useState([])
 
@@ -16,6 +17,9 @@ export const AllGames = () => {
     return (
         <div>
             <h1>Games</h1>
+            <div className="btn-container">
+                <button className="btn-add-game" onClick={() => (navigate("create"))}>Register New Game</button>
+            </div>
             <div className="game-list">
                 {allGames.map((gameObj) => {
                     return (

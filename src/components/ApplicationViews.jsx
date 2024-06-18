@@ -6,6 +6,8 @@ import { Register } from '../pages/Register.jsx'
 import { AllGames } from './AllGames.jsx'
 import "./App.css"
 import { GameDetail } from './GameDetail.jsx'
+import { Home } from '../pages/Home.jsx'
+import { GameForm } from './GameForm.jsx'
 
 /* import {BrowserRouter, Route, Routes} from ReactDOM
 
@@ -21,9 +23,11 @@ export const ApplicationViews = () => {
           <Route path="login" element={<Login/>}/>
           <Route path="register" element={<Register/>}/>
           <Route element={<Authorized/>}>
+            <Route path='/' element={<Home/>}/>
             <Route path="/games">
                 <Route index element={<AllGames/>}/>
                 <Route path=":gameId" element={<GameDetail/>}/>
+                <Route path='create'element={<GameForm/>}/>
             </Route>
           </Route>
         </Routes>
