@@ -18,7 +18,9 @@ export const ReviewForm = () => {
             "game_id": gameId,
             "comment": reviewText
           }
-          await saveNewReview(newReview).then(navigate(`/games/${gameId}`))
+          await saveNewReview(newReview).then(() => {
+            
+            navigate(`/games/${gameId}`)})
     }
 
     return (

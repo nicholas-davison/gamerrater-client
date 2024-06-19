@@ -43,3 +43,9 @@
     text-align: left; /* Aligns text to the left */
 
 }
+
+.game-review {
+    margin: 15px;
+    padding: 8px;
+    border: dotted purple 1px;
+}

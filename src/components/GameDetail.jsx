@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getOneGame } from "../services/gameservice"
+import { getReviews } from "../services/reviewservice"
 
 export const GameDetail = () => {
     const {gameId} = useParams()
     const [currentGame, setCurrentGame] = useState({})
+    const [gameReviews, setGameReviews] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -12,6 +14,12 @@ export const GameDetail = () => {
             setCurrentGame(res)
         })
     }, [gameId])
+
+    useEffect(() => {
+        getReviews(gameId).then(res=> {
+            setGameReviews(res)
+        })
+    }, [gameId, currentGame])
 
     return (
         <div className="game-detail">
@@ -34,8 +42,11 @@ export const GameDetail = () => {
                 </div>
             </div>
             <button className="btn-review-game" onClick={() => {navigate(`review`)}}>Review Game</button>
+            <h2>Reviews:</h2>
             <div className="game-review-container">
-                    
+                {gameReviews.map((review) => {
+                    return <div className="game-review" key={review.id}>{review.comment}</div>
+                })}
             </div>
         </div>
     )
