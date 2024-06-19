@@ -54,8 +54,8 @@ export const GameForm = () => {
         await saveNewGame(newGameChoices).then((res) => {
             if (categorySelection != 0) {
                 const newGameCategory = {
-                    "game_id": `${res.id}`,
-                    "category_id": `${categorySelection}` 
+                    "game_id": res.id,
+                    "category_id": categorySelection 
                 }
                 saveNewGameCategory(newGameCategory).then(() => {
                     navigate('/games')
