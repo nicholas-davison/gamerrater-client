@@ -21,3 +21,25 @@
 .label-game-form {
     margin: 5px 0px
 }
+
+.game-detail-container {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.btn-review-game {
+    padding: 5px;
+    margin: 10px 0px;
+}
+
+.review-form-container {
+    display: flex;
+    justify-content: center;
+}
+.review-text-area {
+    width: 100%;
+    height: 100px;
+    text-align: left; /* Aligns text to the left */
+
+}

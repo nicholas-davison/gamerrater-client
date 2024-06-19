@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { getOneGame } from "../services/gameservice"
 
 export const GameDetail = () => {
     const {gameId} = useParams()
     const [currentGame, setCurrentGame] = useState({})
+    const navigate = useNavigate()
 
     useEffect(() => {
         getOneGame(gameId).then(res => {
@@ -13,7 +14,7 @@ export const GameDetail = () => {
     }, [gameId])
 
     return (
-        <>
+        <div className="game-detail">
             <h1>{currentGame.title}</h1>
             <div className="game-detail-container">
                 <div>Designed by: {currentGame.designer}</div>
@@ -32,6 +33,10 @@ export const GameDetail = () => {
                     }
                 </div>
             </div>
-        </>
+            <button className="btn-review-game" onClick={() => {navigate(`review`)}}>Review Game</button>
+            <div className="game-review-container">
+                    
+            </div>
+        </div>
     )
 }
