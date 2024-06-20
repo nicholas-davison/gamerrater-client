@@ -7,6 +7,7 @@ export const GameDetail = () => {
     const {gameId} = useParams()
     const [currentGame, setCurrentGame] = useState({})
     const [gameReviews, setGameReviews] = useState([])
+    const [userRating, setUserRating] = useState(0)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -43,6 +44,7 @@ export const GameDetail = () => {
             </div>
             <div className="btn-container">
                 <button className="btn-review-game" onClick={() => {navigate(`review`)}}>Review Game</button>
+                <input type="range"min="0" max="5" value={userRating} className="slider" onChange={(e) => setUserRating(e.target.value)}/>
                 {currentGame.is_owner ? (
                     <button className="btn-review-game" onClick={() => {navigate('edit')}}>Edit Game</button>
                 ) : (
