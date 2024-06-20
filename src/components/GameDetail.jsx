@@ -33,7 +33,7 @@ export const GameDetail = () => {
                 <div>Categories:
                     {currentGame.categories && currentGame.categories.length > 0 ? (
                         currentGame.categories.map((category, index) => (
-                            <span key={index}>{category.name}{index < currentGame.categories.length - 1 ? ', ' : ''}</span>
+                            <span key={index}> {category.name}{index < currentGame.categories.length - 1 ? ', ' : ''}</span>
                         ))
                     ) : (
                         <span>No categories available</span>
@@ -41,7 +41,14 @@ export const GameDetail = () => {
                     }
                 </div>
             </div>
-            <button className="btn-review-game" onClick={() => {navigate(`review`)}}>Review Game</button>
+            <div className="btn-container">
+                <button className="btn-review-game" onClick={() => {navigate(`review`)}}>Review Game</button>
+                {currentGame.is_owner ? (
+                    <button className="btn-review-game" onClick={() => {navigate('edit')}}>Edit Game</button>
+                ) : (
+                    ""
+                )}
+            </div>
             <h2>Reviews:</h2>
             <div className="game-review-container">
                 {gameReviews.map((review) => {

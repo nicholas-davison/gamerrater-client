@@ -49,3 +49,9 @@
     padding: 8px;
     border: dotted purple 1px;
 }
+
+.btn-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

@@ -26,3 +26,14 @@ export const saveNewGame = async (request) => {
         body: JSON.stringify(request)
         }).then(res => res.json())
 }
+
+export const updateGame = async (request) => {
+    return await fetch(`http://localhost:8000/games/${request.id}`, {
+        method: "PUT",
+        headers: {
+            Authorization: `Token ${JSON.parse(localStorage.getItem("rock_token")).token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(request)
+    })
+}

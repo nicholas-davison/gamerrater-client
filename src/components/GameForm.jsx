@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import "./games.css"
-import { useNavigate } from "react-router-dom"
-import { saveNewGame } from "../services/gameservice"
+import { useNavigate, useParams, useSubmit } from "react-router-dom"
+import { getOneGame, saveNewGame, updateGame } from "../services/gameservice"
 import { getAllCategories } from "../services/categoryservice"
-import { saveNewGameCategory } from "../services/gamecategoryservice"
+import { getGameCategoriesByGameId, saveNewGameCategory, updateGameCategory } from "../services/gamecategoryservice"
 
 export const GameForm = () => {
     const navigate = useNavigate()
+    const {gameId} = useParams()
     const [allCategories, setAllCategories] = useState([])
     const [newGameChoices, setNewGameChoices] = useState({
         "title": "",
@@ -18,6 +19,21 @@ export const GameForm = () => {
         "age_recommendation": ""
     })
     const [categorySelection, setCategorySelection] = useState("")
+    const [existingGameCategoryId, setExistingGameCategoryId] = useState(0)
+
+    useEffect(() => {
+        if (gameId) {
+            getOneGame(gameId).then(res => {
+                setNewGameChoices(res)
+            })
+            getGameCategoriesByGameId(gameId).then(res => {
+                if (res.length > 0) {
+                    setCategorySelection(res[0].category)
+                    setExistingGameCategoryId(res[0].id)
+                }
+            })
+        }
+    }, [gameId])
 
     useEffect(() => {
         getAllCategories().then((res) => {
@@ -51,18 +67,42 @@ export const GameForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        await saveNewGame(newGameChoices).then((res) => {
-            if (categorySelection != 0) {
-                const newGameCategory = {
-                    "game_id": res.id,
-                    "category_id": categorySelection 
-                }
-                saveNewGameCategory(newGameCategory).then(() => {
+        if (gameId) {
+            await updateGame(newGameChoices).then(() => {
+                if (existingGameCategoryId != 0) {
+                    
+                    const newGameCategory = {
+                        "id": existingGameCategoryId,
+                        "game_id": gameId,
+                        "category_id": categorySelection 
+                    }
+                    updateGameCategory(newGameCategory)
                     navigate('/games')
-                })
-
-            }
-        })
+                } else {
+                    if (categorySelection ) {
+                        const newGameCategory = {
+                            "game_id": gameId,
+                            "category_id": categorySelection 
+                        }
+                        saveNewGameCategory(newGameCategory)
+                        navigate('/games')
+                    } else {
+                        window.alert("please select a category!")
+                    }
+                }
+            })
+        } else {
+            await saveNewGame(newGameChoices).then((res) => {
+                if (categorySelection != 0) {
+                    const newGameCategory = {
+                        "game_id": res.id,
+                        "category_id": categorySelection 
+                    }
+                    saveNewGameCategory(newGameCategory)
+                }
+                navigate('/games')
+            })
+        }
     }
     
     return (
