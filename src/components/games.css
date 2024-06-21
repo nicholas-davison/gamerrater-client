@@ -29,8 +29,9 @@
     justify-content: space-evenly;
 }
 .btn-review-game {
-    padding: 5px;
+    padding: 10px;
     margin: 10px 0px;
+    height: 80%;
 }
 
 .review-form-container {
@@ -54,4 +55,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+
+.rating-slider {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

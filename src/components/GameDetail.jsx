@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getOneGame } from "../services/gameservice"
 import { getReviews } from "../services/reviewservice"
+import { saveNewRating } from "../services/ratingservice"
 
 export const GameDetail = () => {
     const {gameId} = useParams()
@@ -10,10 +11,13 @@ export const GameDetail = () => {
     const [userRating, setUserRating] = useState(0)
     const navigate = useNavigate()
 
-    useEffect(() => {
+    const getAndSetGame = () => {
         getOneGame(gameId).then(res => {
             setCurrentGame(res)
         })
+    }
+    useEffect(() => {
+        getAndSetGame()
     }, [gameId])
 
     useEffect(() => {
@@ -21,6 +25,22 @@ export const GameDetail = () => {
             setGameReviews(res)
         })
     }, [gameId, currentGame])
+
+
+    const handleSubmitRating = () => {
+        if (userRating == 0) {
+            window.alert('please select a rating between 1 and 5')
+        } else {
+            const ratingObj =   {
+                "game_id": gameId,
+                "rating": parseInt(userRating)
+              }
+            saveNewRating(ratingObj)
+            setUserRating(0)
+            getAndSetGame()
+            window.alert('rating saved!')
+        }
+    }
 
     return (
         <div className="game-detail">
@@ -41,10 +61,15 @@ export const GameDetail = () => {
                     )
                     }
                 </div>
+                <div>Average rating: {currentGame.average_rating}</div>
             </div>
             <div className="btn-container">
                 <button className="btn-review-game" onClick={() => {navigate(`review`)}}>Review Game</button>
-                <input type="range"min="0" max="5" value={userRating} className="slider" onChange={(e) => setUserRating(e.target.value)}/>
+                <div className="rating-slider">
+                    <label htmlFor="slider">Rate this game: {userRating}</label>
+                    <input id="slider" type="range"min="0" max="5" value={userRating} className="slider" onChange={(e) => setUserRating(e.target.value)}/>
+                    <button className="btn-review-game" onClick={handleSubmitRating}>Submit</button>
+                </div>
                 {currentGame.is_owner ? (
                     <button className="btn-review-game" onClick={() => {navigate('edit')}}>Edit Game</button>
                 ) : (
