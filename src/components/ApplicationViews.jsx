@@ -10,12 +10,6 @@ import { Home } from '../pages/Home.jsx'
 import { GameForm } from './GameForm.jsx'
 import { ReviewForm } from './ReviewForm.jsx'
 
-/* import {BrowserRouter, Route, Routes} from ReactDOM
-
-import { Register } from "./pages/Register.jsx"
-import { Login } from "./pages/Login.jsx"
-import {AllGames } from "./components/AllGames.jsx"
-import './App.css' */
 
 export const ApplicationViews = () => {
 

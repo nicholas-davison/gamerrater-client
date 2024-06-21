@@ -65,16 +65,16 @@ export const GameDetail = () => {
             </div>
             <div className="btn-container">
                 <button className="btn-review-game" onClick={() => {navigate(`review`)}}>Review Game</button>
-                <div className="rating-slider">
-                    <label htmlFor="slider">Rate this game: {userRating}</label>
-                    <input id="slider" type="range"min="0" max="5" value={userRating} className="slider" onChange={(e) => setUserRating(e.target.value)}/>
-                    <button className="btn-review-game" onClick={handleSubmitRating}>Submit</button>
-                </div>
                 {currentGame.is_owner ? (
                     <button className="btn-review-game" onClick={() => {navigate('edit')}}>Edit Game</button>
                 ) : (
                     ""
                 )}
+                <div className="rating-slider">
+                    <label htmlFor="slider">Rate this game: {userRating}</label>
+                    <input id="slider" type="range"min="0" max="5" value={userRating} className="slider" onChange={(e) => setUserRating(e.target.value)}/>
+                    <button className="btn-review-game" onClick={handleSubmitRating}>Submit</button>
+                </div>
             </div>
             <h2>Reviews:</h2>
             <div className="game-review-container">
